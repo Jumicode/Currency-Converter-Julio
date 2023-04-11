@@ -1,9 +1,16 @@
 import './App.css';
+import ExchangeMain from './components/exchangeMain';
+
 
 function App() {
+
+
   return (
+
     <div >
-      Hola
+      
+<ExchangeMain></ExchangeMain>
+
     </div>
   );
 }
