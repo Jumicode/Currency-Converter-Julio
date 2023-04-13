@@ -8,6 +8,7 @@ export  const exchangeSlice = createSlice ({
         toCurrency:('EUR'),
         amount:(1),
         result:(null),
+        Update:[],
     },
 
 reducers:{
@@ -25,6 +26,9 @@ state.toCurrency = actions.payload;
    },
    setResult:(state,actions) =>{
     state.result = actions.payload;
+   },
+   setUpdate:(state,actions) =>{
+    state.Update = actions.payload;
    }
 }
 
@@ -32,7 +36,7 @@ state.toCurrency = actions.payload;
 }) 
 
 
-export const {setCurrencies,setFromCurrency,setToCurrency,setAmount,setResult} = exchangeSlice.actions;
+export const {setCurrencies,setFromCurrency,setToCurrency,setAmount,setResult,setUpdate} = exchangeSlice.actions;
 
 
 export default exchangeSlice.reducer;

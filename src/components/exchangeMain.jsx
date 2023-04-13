@@ -2,8 +2,9 @@ import React,{useEffect} from 'react';
 
 import { setAmount, setCurrencies, setFromCurrency, setResult, setToCurrency } from '../features/exchange/exchangeSlice';
 import { useDispatch,useSelector } from 'react-redux';
-import axios from 'axios'
-
+import axios from 'axios';
+import '../styles/styles.scss';
+import ExchangeUpdate from './exchangeUpdate';
 
 
 const ExchangeMain = () => {
@@ -15,6 +16,7 @@ useEffect(() =>{
       .get('https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/USD')
       .then(response => {
         const currencyList = Object.keys(response.data.conversion_rates);
+        console.log(response);
         dispatch(setCurrencies(currencyList));
       })
       .catch(error => {
@@ -52,9 +54,8 @@ dispatch(setFromCurrency(event.target.value));
     });
 };
 return (
-    <div>
+    <div className='container'>
 
-<h2>Currency Converter</h2>
       <div>
         <label>From:</label>
         <select value={fromCurrency} onChange={handleFromCurrencyChange}>
@@ -81,11 +82,12 @@ return (
       </div>
       <button onClick={handleConvert}>Convert</button>
       {result && (
-        <div>
+        <div className='result'>
           <p>{amount} {fromCurrency} = {result.toFixed(2)} {toCurrency}</p>
         </div>
       )}
         
+        <ExchangeUpdate></ExchangeUpdate>
     </div>
 );
 
