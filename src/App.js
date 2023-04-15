@@ -1,5 +1,5 @@
 import ExchangeMain from './components/exchangeMain';
-import ExchangeUpdate from './components/exchangeUpdate';
+
 import './styles/styles.scss'
 
 function App() {

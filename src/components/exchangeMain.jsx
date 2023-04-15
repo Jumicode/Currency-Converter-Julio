@@ -87,7 +87,9 @@ return (
         </div>
       )}
         
+        
         <ExchangeUpdate></ExchangeUpdate>
+       
     </div>
 );
 

@@ -8,10 +8,10 @@ import { setUpdate } from '../features/exchange/exchangeSlice';
 
 
 
-const ExchangeUpdate = () => {
+const ExchangeUpdate = ({ rates }) => {
 
 
-const {Update} = useSelector((state) => state.exchange);
+const {Update } = useSelector((state) => state.exchange);
 
 const dispatch = useDispatch();
 
@@ -33,10 +33,10 @@ dispatch(setUpdate(response.data));
 
 
     return (
-        <div>
+        <div className='update'>
             
-    <h5>Last update:{Update.time_last_update_utc}</h5>
-    <h5>Next update:{Update.time_next_update_utc}</h5>
+    <h3>Last update:{Update.time_last_update_utc}</h3>
+    <h3>Next update:{Update.time_next_update_utc}</h3>
 
 
         </div>
