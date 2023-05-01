@@ -87,5 +87,35 @@ button:hover {
 }
 
 .update{
+ margin-top: 10px;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
   
+
+  h3{
+    text-align: center;
+  }
+  h4{
+    text-align: center;
+  }
+
+
+  
+  li{
+    padding: 15px;
+    font-size: 18px;
+    color: #000;
+    margin:auto ; 
+  }
+
+ .search-input{
+  margin: auto;
+  text-align: center;
+  width: min-content;
+  }
+
+
 }
+
+

@@ -1,58 +1,104 @@
-import React,{useEffect} from 'react';
+/**
+ * React component that handles currency exchange.
+ * @module ExchangeMain
+ * @see {@link https://github.com/Jumicode/Currency-Converter/blob/main/src/components/exchangeMain.js|GitHub Repo}
+ */
 
-import { setAmount, setCurrencies, setFromCurrency, setResult, setToCurrency } from '../features/exchange/exchangeSlice';
-import { useDispatch,useSelector } from 'react-redux';
-import axios from 'axios';
-import '../styles/styles.scss';
-import ExchangeUpdate from './exchangeUpdate';
+ import React, { useEffect } from 'react';
+ import { useDispatch, useSelector } from 'react-redux';
+ import axios from 'axios';
+ import ExchangeUpdate from './exchangeUpdate';
+ 
+ import { setAmount, setCurrencies, setFromCurrency, setResult, setToCurrency } from '../features/exchange/exchangeSlice';
+ 
+ import '../styles/styles.scss';
+ 
+ /**
+  * Renders the main currency exchange component.
+  * @function ExchangeMain
+  * @returns {JSX.Element} The JSX code for the component.
+  */
+ const ExchangeMain = () => {
+ 
+   const { currencies, fromCurrency, toCurrency, amount, result } = useSelector((state) => state.exchange);
+ 
+   const dispatch = useDispatch();
+ 
+   /**
+    * Fetches the currency list when the component mounts.
+    * @function useEffect
+    * @memberof ExchangeMain
+    * @inner
+    * @param {Function} callback - The callback function to execute.
+    * @param {Array} dependencies - The dependencies for the effect.
+    */
+   useEffect(() => {
+     axios
+       .get('https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/USD')
+       .then((response) => {
+         const currencyList = Object.keys(response.data.conversion_rates);
+         console.log(response);
+         dispatch(setCurrencies(currencyList));
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+   }, []);
+ 
+   /**
+    * Handles the change event for the "From" currency select.
+    * @function handleFromCurrencyChange
+    * @memberof ExchangeMain
+    * @inner
+    * @param {Object} event - The event object.
+    */
+   const handleFromCurrencyChange = (event) => {
+     dispatch(setFromCurrency(event.target.value));
+   };
+ 
+   /**
+    * Handles the change event for the "To" currency select.
+    * @function handleToCurrencyChange
+    * @memberof ExchangeMain
+    * @inner
+    * @param {Object} event - The event object.
+    */
+   const handleToCurrencyChange = (event) => {
+     dispatch(setToCurrency(event.target.value));
+   };
+ 
+   /**
+    * Handles the change event for the "Amount" input.
+    * @function handleAmountChange
+    * @memberof ExchangeMain
+    * @inner
+    * @param {Object} event - The event object.
+    */
+   const handleAmountChange = (event) => {
+     dispatch(setAmount(event.target.value));
+   };
+ 
+   /**
+    * Handles the "Convert" button click event.
+    * @function handleConvert
+    * @memberof ExchangeMain
+    * @inner
+    */
+   const handleConvert = () => {
+     axios
+       .get(`https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/${fromCurrency}`)
+       .then((response) => {
+         const conversionRate = response.data.conversion_rates[toCurrency];
+         const convertedAmount = amount * conversionRate;
+         dispatch(setResult(convertedAmount));
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+   };
 
-
-const ExchangeMain = () => {
-
-const { currencies ,fromCurrency,toCurrency,amount, result } = useSelector((state) => state.exchange);
-
-useEffect(() =>{
-    axios
-      .get('https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/USD')
-      .then(response => {
-        const currencyList = Object.keys(response.data.conversion_rates);
-        console.log(response);
-        dispatch(setCurrencies(currencyList));
-      })
-      .catch(error => {
-        console.log(error);
-      });
-},[]);
-
-const dispatch = useDispatch();
-
-const handleFromCurrencyChange = event => {
-
-dispatch(setFromCurrency(event.target.value));
-
-
- };
- const handleToCurrencyChange = event => {
-    dispatch(setToCurrency(event.target.value))
-  };
-
-  const handleAmountChange = event => {
-    dispatch(setAmount(event.target.value));
-  };
-
-  const handleConvert = () =>{
-
-    axios
-    .get(`https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/${fromCurrency}`)
-    .then(response => {
-      const conversionRate = response.data.conversion_rates[toCurrency];
-      const convertedAmount = amount * conversionRate;
-      dispatch(setResult(convertedAmount));
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+   // Rendering the currency converter UI with event listeners and conditional rendering of the result.
+  
 return (
     <div className='container'>
 
