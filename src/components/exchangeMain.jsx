@@ -13,6 +13,7 @@
  
  import '../styles/styles.scss';
  
+
  /**
   * Renders the main currency exchange component.
   * @function
@@ -114,6 +115,7 @@
     <div className='container'>
       <div>
         <label>From:</label>
+        
         <select value={fromCurrency} onChange={handleFromCurrencyChange}>
           {currencies.map(currency => (
             <option key={currency} value={currency}>

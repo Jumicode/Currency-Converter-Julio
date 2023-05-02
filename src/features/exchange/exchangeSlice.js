@@ -44,6 +44,7 @@ export const exchangeSlice = createSlice({
     setUpdate: (state, action) => {
       state.Update = action.payload;
     },
+    // Reducer for search Currency
     setSearchQuery:(state,action) =>{
       state.searchQuery = action.payload;
     }
