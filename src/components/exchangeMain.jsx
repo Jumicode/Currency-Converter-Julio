@@ -15,11 +15,10 @@
  
  /**
   * Renders the main currency exchange component.
-  * @function ExchangeMain
+  * @function
   * @returns {JSX.Element} The JSX code for the component.
   */
  const ExchangeMain = () => {
- 
    const { currencies, fromCurrency, toCurrency, amount, result } = useSelector((state) => state.exchange);
  
    const dispatch = useDispatch();
@@ -27,7 +26,7 @@
    /**
     * Fetches the currency list when the component mounts.
     * @function useEffect
-    * @memberof ExchangeMain
+    * @memberof module:ExchangeMain
     * @inner
     * @param {Function} callback - The callback function to execute.
     * @param {Array} dependencies - The dependencies for the effect.
@@ -47,8 +46,8 @@
  
    /**
     * Handles the change event for the "From" currency select.
-    * @function handleFromCurrencyChange
-    * @memberof ExchangeMain
+    * @function
+    * @memberof module:ExchangeMain
     * @inner
     * @param {Object} event - The event object.
     */
@@ -58,8 +57,8 @@
  
    /**
     * Handles the change event for the "To" currency select.
-    * @function handleToCurrencyChange
-    * @memberof ExchangeMain
+    * @function
+    * @memberof module:ExchangeMain
     * @inner
     * @param {Object} event - The event object.
     */
@@ -69,8 +68,8 @@
  
    /**
     * Handles the change event for the "Amount" input.
-    * @function handleAmountChange
-    * @memberof ExchangeMain
+    * @function
+    * @memberof module:ExchangeMain
     * @inner
     * @param {Object} event - The event object.
     */
@@ -80,8 +79,8 @@
  
    /**
     * Handles the "Convert" button click event.
-    * @function handleConvert
-    * @memberof ExchangeMain
+    * @function
+    * @memberof module:ExchangeMain
     * @inner
     */
    const handleConvert = () => {
@@ -97,11 +96,22 @@
        });
    };
 
-   // Rendering the currency converter UI with event listeners and conditional rendering of the result.
-  
-return (
-    <div className='container'>
 
+     /**
+   * Handles the "Invert" button click event.
+   * @function handleInvert
+   * @memberof ExchangeMain
+   * @inner
+   */
+   
+  function handleInvert() {
+     dispatch(setFromCurrency(toCurrency));
+     dispatch(setToCurrency(fromCurrency));
+   }
+
+
+  return (
+    <div className='container'>
       <div>
         <label>From:</label>
         <select value={fromCurrency} onChange={handleFromCurrencyChange}>
@@ -127,25 +137,16 @@ return (
         <input type="number" value={amount} onChange={handleAmountChange} />
       </div>
       <button onClick={handleConvert}>Convert</button>
+      <button onClick={handleInvert} className='Invert'>Invert</button>
       {result && (
         <div className='result'>
           <p>{amount} {fromCurrency} = {result.toFixed(2)} {toCurrency}</p>
         </div>
       )}
-        
-        
-        <ExchangeUpdate></ExchangeUpdate>
-       
+      <ExchangeUpdate></ExchangeUpdate>
     </div>
-);
-
-
-  }
-
-
-
-
-   
-    
+  );
+}
 
 export default ExchangeMain;
+
