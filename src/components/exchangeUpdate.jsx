@@ -23,7 +23,7 @@ const ExchangeUpdate = () => {
       .get('https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/USD')
       .then((response) => {
         dispatch(setUpdate(response.data.conversion_rates));
-        console.log(response);
+        //console.log(response);
       })
       .catch((error) => {
         console.log(error);

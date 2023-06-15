@@ -37,7 +37,7 @@
        .get('https://v6.exchangerate-api.com/v6/c223ac6b72ff418533308c6b/latest/USD')
        .then((response) => {
          const currencyList = Object.keys(response.data.conversion_rates);
-         console.log(response);
+        // console.log(response);
          dispatch(setCurrencies(currencyList));
        })
        .catch((error) => {
@@ -114,9 +114,9 @@
   return (
     <div className='container'>
       <div>
-        <label>From:</label>
+        <label htmlFor='fromCurrency'>From:</label>
         
-        <select value={fromCurrency} onChange={handleFromCurrencyChange}>
+        <select id='fromCurrency'  value={fromCurrency} onChange={handleFromCurrencyChange}>
           {currencies.map(currency => (
             <option key={currency} value={currency}>
               {currency}
@@ -125,8 +125,8 @@
         </select>
       </div>
       <div>
-        <label>To:</label>
-        <select value={toCurrency} onChange={handleToCurrencyChange}>
+        <label htmlFor='toCurrency'>To:</label>
+        <select  id='toCurrency' value={toCurrency} onChange={handleToCurrencyChange}>
           {currencies.map(currency => (
             <option key={currency} value={currency}>
               {currency}
@@ -135,8 +135,8 @@
         </select>
       </div>
       <div>
-        <label>Amount:</label>
-        <input type="number" value={amount} onChange={handleAmountChange} />
+        <label htmlFor='AmountLabel'>Amount:</label>
+        <input id='AmountLabel' type="number" value={amount} onChange={handleAmountChange} />
       </div>
       <button onClick={handleConvert}>Convert</button>
       <button onClick={handleInvert} className='Invert'>Invert</button>
