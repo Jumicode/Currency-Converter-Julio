@@ -3,6 +3,10 @@
 
 Currency Converter is a web application that allows users to convert between different currencies using real-time exchange rates provided by the [ExchangeRate-API](https://www.exchangerate-api.com/) API.
 
+# Site Live 
+
+https://currencyconverterjulio.netlify.app
+
 ## Functionality
 
 The application allows the user to select the source currency, target currency, enter an amount, and then display the result of the conversion. Additionally, a table listing the current exchange rates for different currencies is displayed.
